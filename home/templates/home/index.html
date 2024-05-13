@@ -1,12 +1,26 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static '/css/home.css' %}" type="text/css">
+{% endblock %}
+
 {% block page_header %}
+
 {% endblock %}
 
 {% block content %}
-<div>
-   <h1>Hello</h1> 
+<div class="bg-home p-0 m-0">
+   <div class="row top-navbar-space p-0 m-0">
+   </div>
+   <div class="row m-0 p-0" style="height: 70vh;">
+      <div class="col-12 my-auto">
+         <h1>Hello</h1>
+      </div>
+      <div class="col-12">
+         <h2>Next</h2>
+      </div>
+   </div>
 </div>
 
 {% endblock %}

@@ -1,0 +1,12 @@
+.bg-home {
+    background: url('/media/bg_img/bg-burger.webp') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+}
+
+.bg-home-overlay {
+    background-color: rgba(red, green, blue, alpha);
+}

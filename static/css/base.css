@@ -1,3 +1,41 @@
 h1 {
     color: rgb(26, 133, 228);
 }
+body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.light-font {
+    color: white;
+}
+
+.container-fluid {
+    --bs-gutter-x: 0;
+}
+
+.navbar-brand:active,
+.navbar-brand:focus,
+.nav-link:focus,
+.nav-link.active,
+.light-font:hover {
+    color: white !important;
+}
+
+/* ----- Navbar ----- */
+.top-navbar-space {
+    height: 15vh;
+}
+
+.custom-navbar {
+    height: 15vh;
+    border-bottom: 2px solid white;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+}
+
+.text-bg-custom {
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+}

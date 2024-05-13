@@ -20,6 +20,9 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}" type="text/css">
     {% endblock %}
 
+    {% block extra_css %}
+    {% endblock %}
+
     {% block core_js %}
     <!-- jquery link -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -30,21 +33,21 @@
     <title>Hello, world! {% block extra_title %}{% endblock %}</title>
 </head>
 
-<body>
+<body class="container-fluid">
 
-    <header class="container-fluid">
+    <header>
         {% include 'includes/navbar.html' %}
     </header>
 
     {% block page_header %}
     {% endblock %}
 
-    <main class="container-fluid">
+    <main>
         {% block content %}
         {% endblock %}
     </main>
 
-    <footer class="container-fluid">
+    <footer>
 
     </footer>
 
