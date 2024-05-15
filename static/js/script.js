@@ -13,4 +13,11 @@ $(document).ready(function () {
             $('#footer').collapse('hide');
         }
     });
+    $('.offcanvas').on('shown.bs.offcanvas', function() {
+        $('footer').hide();
+    });
+
+    $('.offcanvas').on('hidden.bs.offcanvas', function() {
+        $('footer').show();
+    });
 });
