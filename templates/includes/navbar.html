@@ -1,14 +1,27 @@
 <nav class="navbar navbar-dark navbar-expand-lg fixed-top custom-navbar">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Burger's World</a>
+    <a class="navbar-brand d-none d-lg-inline-block" href="#">Burger's World</a>
     <button class="navbar-toggler m-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
       aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+    <!-- Shopping basket -->
+    <span class="d-inline-block d-lg-none text-center">
+      <a class="text-decoration-none " href="#" aria-label="Go to shopping basket">
+        <i class="fa-solid fa-cart-shopping d-block"></i>
+        <span>
+          {% if grand_total %}
+          ${{ grand_total|floatformat:2 }}
+          {% else %}
+          $0.00
+          {% endif %}
+        </span>
+      </a>
+    </span>
     <div class="offcanvas offcanvas-end text-bg-custom" tabindex="-1" id="offcanvasDarkNavbar"
       aria-labelledby="offcanvasDarkNavbarLabel">
       <div class="row offcanvas-header">
-        <div class="col-10 m-0">
+        <div class="col-10">
           <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Burger's World</h5>
         </div>
         <div class="col-2 m-0">
@@ -17,18 +30,72 @@
         </div>
       </div>
       <div class="offcanvas-body p-1">
-        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 mb-2 mb-lg-0 my-auto">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+        <div class="form-container">
+          <form class="d-flex mt-1" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+          </form>
+        </div>
+        <ul class="navbar-nav pe-3 mb-2 mb-lg-0 my-auto d-flex justify-content-end flex-grow-1">
+          <li class="nav-item text-end text-lg-center">
+            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">
+              <i class="fa-solid fa-house d-lg-block mx-2 mx-lg-0"></i>
+              <span class="p-0 m-0">
+                Home
+              </span>
+            </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown text-end text-lg-center">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
+              <i class="fa-solid fa-user d-lg-block mx-2 mx-lg-0"></i>
+              <span class="p-0 m-0">
+                My Account
+              </span>
             </a>
             <ul class="dropdown-menu dropdown-menu-dark">
+              {% if request.user.is_authenticated %}
+              <li><a class="dropdown-item" href="#">
+                  <i class="fa-regular fa-id-card me-1"></i> My Profile
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'account_logout' %}">
+                  <i class="fa-solid fa-right-from-bracket fa-flip-horizontal me-1"></i>
+                  Logout
+                </a>
+              </li>
+              {% if request.user.is_superuser %}
+              <!-- Source: https://mdbootstrap.com/docs/standard/extended/dropdown-multilevel/# -->
+              <li>
+                <a class="dropdown-item" href="#">
+                  <i class="fa-solid fa-gear me-1"></i> Product Management <i class="fa-solid fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-submenu">
+                  <li>
+                    <a class="dropdown-item" href="#">Add Product</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">Add Something</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="{% url 'admin:index' %}">Admin Panel</a>
+                  </li>
+                </ul>
+              </li>
+              {% endif %}
+              {% else %}
+              <li>
+                <a class="dropdown-item" href="{% url 'account_login' %}">
+                  <i class="fa-solid fa-right-to-bracket me-1"></i> Login
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'account_signup' %}">
+                  <i class="fa-solid fa-user-plus me-1"></i> Register
+                </a>
+              </li>
+              {% endif %}
+
               <li><a class="dropdown-item" href="#">Action</a></li>
               <li><a class="dropdown-item" href="#">Another action</a></li>
               <li>
@@ -37,12 +104,22 @@
               <li><a class="dropdown-item" href="#">Something else here</a></li>
             </ul>
           </li>
+          <!-- Shopping basket -->
+          <li class="nav-item text-center my-auto d-none d-lg-block">
+            <a class="text-decoration-none" href="#" aria-label="Go to shopping basket">
+              <!-- <div class="text-center p-0"> -->
+              <i class="fa-solid fa-cart-shopping d-block"></i>
+              <span>
+                {% if grand_total %}
+                ${{ grand_total|floatformat:2 }}
+                {% else %}
+                $0.00
+                {% endif %}
+              </span>
+            </a>
+          </li>
         </ul>
-        <form class="d-flex mt-3" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-        </form>
       </div>
-    </div>
+    </div>  
   </div>
 </nav>
