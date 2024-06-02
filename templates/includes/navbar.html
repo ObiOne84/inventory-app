@@ -1,125 +1,122 @@
-<nav class="navbar navbar-dark navbar-expand-lg fixed-top custom-navbar">
-  <div class="container-fluid">
-    <a class="navbar-brand d-none d-lg-inline-block" href="#">Burger's World</a>
-    <button class="navbar-toggler m-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
-      aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <!-- Shopping basket -->
-    <span class="d-inline-block d-lg-none text-center">
-      <a class="text-decoration-none " href="#" aria-label="Go to shopping basket">
-        <i class="fa-solid fa-cart-shopping d-block"></i>
-        <span>
-          {% if grand_total %}
-          ${{ grand_total|floatformat:2 }}
-          {% else %}
-          $0.00
-          {% endif %}
-        </span>
-      </a>
-    </span>
-    <div class="offcanvas offcanvas-end text-bg-custom" tabindex="-1" id="offcanvasDarkNavbar"
-      aria-labelledby="offcanvasDarkNavbarLabel">
-      <div class="row offcanvas-header">
-        <div class="col-10">
-          <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Burger's World</h5>
-        </div>
-        <div class="col-2 m-0">
+
+<nav class="navbar navbar-dark fixed-top nav-border-bottom custom-navbar" id="navbar">
+    <div class="container-fluid">
+      <button class="navbar-toggler m-2" id="menu-custom-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
+        aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- <div class="form-container">
+        <form class="d-flex mt-1" role="search">
+          <input class="form-control me-2 d-none d-sm-inline-block w-50" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+      </div> -->
+      <span class="d-inline-block text-center me-lg-3 me-1">
+        <a class="text-decoration-none icon" href="#" aria-label="Go to shopping basket">
+          <i class="fa-solid fa-cart-shopping d-block"></i>
+          <span>
+            {% if grand_total %}
+            ${{ grand_total|floatformat:2 }}
+            {% else %}
+            $0.00
+            {% endif %}
+          </span>
+        </a>
+      </span>
+      <div class="offcanvas offcanvas-start text-bg-custom" tabindex="-1" id="offcanvasDarkNavbar"
+        aria-labelledby="offcanvasDarkNavbarLabel">
+        <div class="offcanvas-header">
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
             aria-label="Close"></button>
         </div>
-      </div>
-      <div class="offcanvas-body p-1">
-        <div class="form-container">
-          <form class="d-flex mt-1" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-          </form>
-        </div>
-        <ul class="navbar-nav pe-3 mb-2 mb-lg-0 my-auto d-flex justify-content-end flex-grow-1">
-          <li class="nav-item text-end text-lg-center">
-            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">
-              <i class="fa-solid fa-house d-lg-block mx-2 mx-lg-0"></i>
-              <span class="p-0 m-0">
-                Home
-              </span>
-            </a>
-          </li>
-          <li class="nav-item dropdown text-end text-lg-center">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="fa-solid fa-user d-lg-block mx-2 mx-lg-0"></i>
-              <span class="p-0 m-0">
-                My Account
-              </span>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-dark">
+        <div class="offcanvas-body">
+          <ul class="navbar-nav justify-content-start flex-grow-1 pe-3 text-start offcanvas-custom-bg">
+            <li class="nav-item">
+              <a class="nav-link logo-font" aria-current="page" href="{% url 'home' %}">
+                <i class="fa-solid fa-house mx-2 mx-lg-0 nav-text"></i>
+                &nbsp;
+                <span class="nav-text text-uppercase">Home</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link logo-font" aria-current="page" href="#">
+                  <i class="fa-solid fa-jedi fa-flip mx-2 mx-lg-0 nav-text"></i>
+                  &nbsp;
+                  {% if request.user.is_authenticated %}
+                  <span class="nav-text text-uppercase">Play</span>
+                  {% else %}
+                  <span class="nav-text text-uppercase">Login to Play</span>
+                  {% endif %}
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link logo-font" aria-current="page" href="#">
+                <i class="fa-solid fa-circle-info nav-text"></i>
+                &nbsp;
+                <span class="nav-text text-uppercase">How to play</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link logo-font" aria-current="page" href="#">
+                <i class="fa-solid fa-chart-simple mx-2 mx-lg-0 nav-text"></i>
+                &nbsp;
+                <span class="nav-text text-uppercase">Leaderboard</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-uppercase" aria-current="page" href="#">
+                <i class="fa-solid fa-people-group mx-2 mx-lg-0 nav-text"></i>
+                &nbsp;
+                <span class="nav-text logo-font">Team</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-uppercase" aria-current="page" href="https://starwars.fandom.com/wiki/Hyperspace:_The_Official_Star_Wars_Fan_Club" target="_blank" aria-label="Visit StarWars fan club page and meet your favourite characteres" rel="nofollow noopener">
+                <i class="fa-solid fa-book mx-2 mx-lg-0 nav-text"></i>
+                &nbsp;
+                <span class="nav-text logo-font">Star wars fan club</span>
+              </a>
+            </li>
+            <li class="nav-item" id="sound-setting-button">
+              <a class="nav-link text-uppercase" aria-current="page" href="#" aria-label="Sound control" rel="nofollow noopener">
+                <i class="fa-solid fa-music nav-text"></i>
+                &nbsp;
+                <span class="nav-text logo-font">Sound settings</span>
+              </a>
+            </li>
               {% if request.user.is_authenticated %}
-              <li><a class="dropdown-item" href="#">
-                  <i class="fa-regular fa-id-card me-1"></i> My Profile
+              <li class="nav-item">
+                <a class="nav-link text-uppercase" aria-current="page"  href="#" aria-label="My profile">
+                  <i class="fa-solid fa-right-from-bracket nav-text"></i>
+                  &nbsp;
+                  <span class="nav-text logo-font">My profile</span>
                 </a>
               </li>
-              <li>
-                <a class="dropdown-item" href="{% url 'account_logout' %}">
-                  <i class="fa-solid fa-right-from-bracket fa-flip-horizontal me-1"></i>
-                  Logout
+              <li class="nav-item">
+                <a class="nav-link text-uppercase" aria-current="page" aria-label="Logout" href="{% url 'account_logout' %}">
+                  <i class="fa-solid fa-book mx-2 mx-lg-0 nav-text"></i>
+                  &nbsp;
+                  <span class="nav-text logo-font">logout</span>
                 </a>
               </li>
-              {% if request.user.is_superuser %}
-              <!-- Source: https://mdbootstrap.com/docs/standard/extended/dropdown-multilevel/# -->
-              <li>
-                <a class="dropdown-item" href="#">
-                  <i class="fa-solid fa-gear me-1"></i> Product Management <i class="fa-solid fa-caret-down"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-submenu">
-                  <li>
-                    <a class="dropdown-item" href="#">Add Product</a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">Add Something</a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="{% url 'admin:index' %}">Admin Panel</a>
-                  </li>
-                </ul>
-              </li>
-              {% endif %}
-              {% else %}
-              <li>
-                <a class="dropdown-item" href="{% url 'account_login' %}">
-                  <i class="fa-solid fa-right-to-bracket me-1"></i> Login
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="{% url 'account_signup' %}">
-                  <i class="fa-solid fa-user-plus me-1"></i> Register
-                </a>
-              </li>
-              {% endif %}
-
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
-          <!-- Shopping basket -->
-          <li class="nav-item text-center my-auto d-none d-lg-block">
-            <a class="text-decoration-none" href="#" aria-label="Go to shopping basket">
-              <!-- <div class="text-center p-0"> -->
-              <i class="fa-solid fa-cart-shopping d-block"></i>
-              <span>
-                {% if grand_total %}
-                ${{ grand_total|floatformat:2 }}
                 {% else %}
-                $0.00
+                <li class="nav-item">
+                  <a class="nav-link logo-font" href="{% url 'account_login' %}">
+                    <i class="fa-solid fa-right-to-bracket me-1 nav-text"></i>
+                    &nbsp;
+                    <span class="nav-text text-uppercase">Login</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link logo-font" href="{% url 'account_signup' %}">
+                    <i class="fa-solid fa-user-plus me-1 nav-text"></i>
+                    &nbsp;
+                    <span class="nav-text text-uppercase">Register</span>
+                  </a>
+                </li>
                 {% endif %}
-              </span>
-            </a>
-          </li>
-        </ul>
+          </ul>
+        </div>
       </div>
-    </div>  
-  </div>
-</nav>
+    </div>
+  </nav>
