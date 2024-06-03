@@ -1,0 +1,114 @@
+:root {
+    --primary-color: #2C3E50;
+    --secondary-color: #3498DB;
+    --background-color: #FFFFFF;
+    --light-gray: #ECF0F1;
+    --dark-gray: #7F8C8D;
+    --success-color: #2ECC71;
+    --error-color: #E74C3C;
+    --warning-color: #E67E22;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--dark-gray);
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    background-color: var(--primary-color);
+    color: var(--background-color);
+}
+
+.navbar {
+    background-color: var(--primary-color);
+    color: var(--background-color);
+}
+
+button.primary {
+    background-color: var(--secondary-color);
+    color: var(--background-color);
+}
+
+button.success {
+    background-color: var(--success-color);
+    color: var(--background-color);
+}
+
+button.error {
+    background-color: var(--error-color);
+    color: var(--background-color);
+}
+
+input, textarea {
+    background-color: var(--light-gray);
+    border: 1px solid var(--dark-gray);
+}
+
+.notification-warning {
+    background-color: var(--warning-color);
+    color: var(--background-color);
+}
+
+.notification-error {
+    background-color: var(--error-color);
+    color: var(--background-color);
+}
+
+.notification-success {
+    background-color: var(--success-color);
+    color: var(--background-color);
+}
+
+.table th {
+    background-color: var(--light-gray);
+    color: var(--dark-gray);
+}
+
+.table td {
+    background-color: var(--background-color);
+    color: var(--dark-gray);
+}
+
+
+/* Choosing a good color theme for a web application that allows product ordering and includes inventory capabilities for the admin is crucial for usability and aesthetic appeal. Here are some key considerations and a suggested color theme:
+
+Key Considerations:
+Readability: Ensure text is easily readable against the background.
+Contrast: Use high contrast for important elements like buttons and notifications.
+Consistency: Keep a consistent color scheme across the application for a professional look.
+Accessibility: Ensure the color scheme is accessible for users with color vision deficiencies.
+Professional Look: Use colors that convey professionalism and trustworthiness.
+Suggested Color Theme:
+Primary Colors:
+Dark Blue (#2C3E50): For headers, navigation bar, and important action buttons (e.g., "Order Now").
+Light Blue (#3498DB): For secondary buttons, links, and highlights.
+Secondary Colors:
+White (#FFFFFF): For background, to keep the layout clean and readable.
+Light Gray (#ECF0F1): For input fields, secondary backgrounds, and borders.
+Dark Gray (#7F8C8D): For text, especially for less important information.
+Accent Colors:
+Green (#2ECC71): For success messages, in-stock indicators, and confirmation buttons.
+Red (#E74C3C): For error messages, out-of-stock indicators, and delete buttons.
+Orange (#E67E22): For warnings and notifications. */
+
+/* <header class="header">
+    <h1>Product Order & Inventory System</h1>
+</header>
+<nav class="navbar">
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Products</a></li>
+        <li><a href="#">Orders</a></li>
+        <li><a href="#">Inventory</a></li>
+        <li><a href="#">Admin</a></li>
+    </ul>
+</nav>
+<main>
+    <button class="primary">Order Now</button>
+    <button class="success">Confirm</button>
+    <button class="error">Delete</button>
+    <div class="notification-warning">Warning: Low stock!</div>
+    <div class="notification-error">Error: Could not complete the action.</div>
+    <div class="notification-success">Success: Order placed successfully!</div>
+</main> */
