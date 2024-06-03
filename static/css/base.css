@@ -1,6 +1,36 @@
-h1 {
-    color: rgb(26, 133, 228);
+
+:root {
+    /* FONTS */
+    /* --main-font: 'Orbitron', sans-serif;
+    --mid-font: 'Star Wars', sans-serif; */
+    
+    /* COLOR PALETTE */
+    --light-foreground: #f1ee8e;
+    --mid-foreground: #e5de00;
+    --dark-foreground: #e69b00;
+
+    --light-background: #3b444b;
+    --light-background-opaque: rgba(1, 29, 49, 0.5);
+    --dark-background: #02178d;
+    --dark-background-opaque: rgba(0, 1, 22, 0.9);
+
+    --light-ending: #e69b00;
 }
+
+/* FONTS */
+h1 {
+    color: var(--light-foreground);
+}
+
+p, li, a {
+    color: var(--mid-foreground);
+}
+
+.icon,
+.light-font {
+    color: var(--mid-foreground);
+}
+
 body {
     min-height: 100vh;
     margin: 0;
@@ -8,14 +38,9 @@ body {
 }
 
 #footer {
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: var(--dark-background-opaque);
     --bs-gutter-x: none;
-    color: white;
-}
-
-.icon,
-.light-font {
-    color: white;
+    color: var(--mid-foreground);
 }
 
 .container-fluid {
@@ -27,30 +52,40 @@ body {
 .nav-link:focus,
 .nav-link.active,
 .light-font:hover {
-    color: white !important;
+    color: var(--mid-foreground) !important;
 }
 
 /* ----- Navbar ----- */
 .top-navbar-space {
-    height: 15%;
+    height: 15vh;
 }
 
 .custom-navbar {
     min-height: 15vh;
-    border-bottom: 2px solid white;
-    background-color: rgba(0, 0, 0, 0.9);
-    color: white;
+    border-bottom: 2px solid var(--mid-foreground);
+    background-color: var(--dark-background-opaque);
+    color: var(--mid-foreground);
 }
 
 .text-bg-custom {
-    background-color: rgba(0, 0, 0, 0.9);
-    color: white;
+    background-color: var(--dark-background-opaque);
+    color: var(--mid-foreground);
+}
+
+/* Navbar button close and burger menu */
+/* .btn-close {
+    background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23efff14'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center / 1em auto no-repeat;
+} */
+
+.navbar-dark .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28239, 255, 20, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+
 }
 
 /* ----- Footer ----- */
 .footer-arrow {
-    color: white;
-    background-color: rgba(0, 0, 0, 0.9);
+    color: var(--mid-foreground);
+    background-color: var(--dark-background-opaque);
     border-bottom: none;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;

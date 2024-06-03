@@ -1,5 +1,5 @@
 .bg-home {
-    background: url('/media/bg_img/bg-burger.webp') no-repeat center center fixed;
+    background: url('/media/bg_img/big-data-good.jpg') no-repeat center center fixed;
     background-size: cover;
     display: flex;
     flex-direction: column;
@@ -9,4 +9,18 @@
 
 .bg-home-overlay {
     background-color: rgba(red, green, blue, alpha);
+}
+
+/* .text-bg-overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+    height: 100%;
+    width: 100%;
+} */
+
+.ad-container {
+    min-height: 30vh;
+    background-color: var(--dark-background-opaque);
+    border-radius: 15px;
+    box-sizing: border-box;
+    border: 2px solid var(--light-ending);
 }
