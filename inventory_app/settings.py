@@ -32,7 +32,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     os.environ.get('LOCAL_HOST'),
-    'https://inventory-app-sz-e909db24ac61.herokuapp.com/',
+    'inventory-app-sz-e909db24ac61.herokuapp.com',
 ]
 
 
