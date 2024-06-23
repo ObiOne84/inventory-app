@@ -35,7 +35,10 @@ ALLOWED_HOSTS = [
     'inventory-app-sz-e909db24ac61.herokuapp.com',
 ]
 
-CSRF_TRUSTED_ORIGINS = ['https://8000-obione84-inventoryapp-fvu4gfku1dv.ws-eu114.gitpod.io',]
+CSRF_TRUSTED_ORIGINS = [
+    'https://8000-obione84-inventoryapp-fvu4gfku1dv.ws-eu114.gitpod.io',
+    'https://inventory-app-sz-e909db24ac61.herokuapp.com/',
+]
 
 
 # Application definition
