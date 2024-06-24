@@ -13,74 +13,102 @@
 <div class="row top-navbar-space p-0 m-0"></div>
 <h1>Hello World!</h1>
 <div class="container">
-    {% for product in products|slice:":20" %}
-    <div class="col-12 col-sm-4 col-md-3 col-lg-2 px-3 px-md-1">
-        <div class="card h-100 border-0">
-            {% if product.image %}
-            <a href="#">
-                <img class="card-img-top product-img" loading="lazy" src="{{ product.image_url }}" alt="Image for {{ product.title }}">
-            </a>
-            {% else %}
-            <a href="#">
-                <img class="card-img-top product-img" loading="lazy" src="{{ MEDIA_URL }}noimage.png" alt="Image not available for {{ product.title }}">
-            </a>
-            {% endif %}
-            <div class="card-body pb-0">
-                <p class="mb-0 text-black">{{ product.title}}</p>
-            </div>
-            <div class="card-footer border-0 bg-white">
-                <div class="row">
-                    <div class="col">
-                        <p class="fw-bold fs-5">${{ product.price }}</p>
-                        {% if product.category %}
-                        <a class="text-decoration-none"
-                            href="{% url 'products' %}?category={{ product.category.name }}"
-                            aria-label="{{ product.category.name }}">{{ product.category.display_name }}
-                        </a>
-                        {% else %}
-                        <p>Not Available</p>
-                        {% endif %}
-                        {% if product.rating %}
-                        <p><i class="fa-solid fa-star"></i> {{ product.rating }} / 5</p>
-                        {% else %}
-                        <p>No Ratings</p>
-                        {% endif %}
-                    </div>
+    <div class="row mx-4 mx-md-0 mb-5">
+    {% for product in page_obj %}
+        <div class="col-12 col-sm-4 col-md-3 col-lg-2 px-3 px-md-1">
+            <div class="card h-100 border-0">
+                {% if product.image %}
+                <a href="#">
+                    <img class="card-img-top product-img" loading="lazy" src="{{ product.image_url }}" alt="Image for {{ product.title }}">
+                </a>
+                {% else %}
+                <a href="#">
+                    <img class="card-img-top product-img" loading="lazy" src="{{ MEDIA_URL }}noimage.png" alt="Image not available for {{ product.title }}">
+                </a>
+                {% endif %}
+                <div class="card-body pb-0">
+                    <p class="mb-0 text-black">{{ product.title}}</p>
                 </div>
-                <div class="row">
-                    <!-- Form to add product to the bag -->
-                    <form class="form" action="#" method="POST">
-                        {% csrf_token %}
-                        <div class="row">
-                            <div class="col-12 p-0 px-md-3 my-0">
-                                <div class="form-group">
-                                    <div class="input-group input-group-{{ product.id }}">
-                                        <span class="me-1 fw-bold p-1">Qty: </span>
-                                        <select
-                                            class="form-control qty_input m-0 p-1 text-center id_qty_{{ product.id }} rounded-1"
-                                            name="quantity" id="id_qty_{{ product.id }}" aria-label="Select product quantity">
-                                            <option value="" selected disabled>Choose</option>
-                                            {% for i in quantity_range %}
-                                            <option value="{{ i }}">{{ i }}</option>
-                                            {% endfor %}
-                                        </select>
+                <div class="card-footer border-0 bg-white">
+                    <div class="row">
+                        <div class="col">
+                            <p class="fw-bold fs-5">${{ product.price }}</p>
+                            {% if product.category %}
+                            <a class="text-decoration-none"
+                                href="{% url 'products' %}?category={{ product.category.name }}"
+                                aria-label="{{ product.category.name }}">{{ product.category.display_name }}
+                            </a>
+                            {% else %}
+                            <p>Not Available</p>
+                            {% endif %}
+                            {% if product.rating %}
+                            <p><i class="fa-solid fa-star"></i> {{ product.rating }} / 5</p>
+                            {% else %}
+                            <p>No Ratings</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- Form to add product to the bag -->
+                        <form class="form" action="#" method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-12 p-0 px-md-3 my-0">
+                                    <div class="form-group">
+                                        <div class="input-group input-group-{{ product.id }}">
+                                            <span class="me-1 fw-bold p-1">Qty: </span>
+                                            <select
+                                                class="form-control qty_input m-0 p-1 text-center id_qty_{{ product.id }} rounded-1"
+                                                name="quantity" id="id_qty_{{ product.id }}" aria-label="Select product quantity">
+                                                <option value="" selected disabled>Choose</option>
+                                                {% for i in quantity_range %}
+                                                <option value="{{ i }}">{{ i }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="col-12 p-0 px-md-3 my-0">
+                                    <input type="submit"
+                                        class="btn btn-sm w-100 btn-black-brown rounded-1 text-uppercase"
+                                        value="Add to Bag">
+                                </div>
+                                <!-- Redirect url -->
+                                <!-- <input type="hidden" name="redirect_url" value="{{ request.path }}"> -->
                             </div>
-                            <div class="col-12 p-0 px-md-3 my-0">
-                                <input type="submit"
-                                    class="btn btn-sm w-100 btn-black-brown rounded-1 text-uppercase"
-                                    value="Add to Bag">
-                            </div>
-                            <!-- Redirect url -->
-                            <!-- <input type="hidden" name="redirect_url" value="{{ request.path }}"> -->
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     {% endfor %}
+    </div>
+
+    {% if is_paginated %}
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center my-4">
+            {% if page_obj.has_previous %}
+            <li>
+                <a href="?page={{ page_obj.previous_page_number }}&sort={{ sort }}&direction={{ direction }}"
+                    class="page-link pagination-btn rounded-left" aria-label="Return to previous page">&laquo; PREV </a>
+            </li>
+            {% endif %}
+
+            {% for i in page_range %}
+            <li class="page-item page-num-link {% if i == page_obj.number %}active{% endif %}">
+                <a href="?page={{ i }}&sort={{ sort }}&direction={{ direction }}" class="page-link" aria-label="Current page">{{ i }}</a>
+            </li>
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <li>
+                <a href="?page={{ page_obj.next_page_number }}&sort={{ sort }}&direction={{ direction }}"
+                    class="page-link pagination-btn rounded-right" aria-label="Go to the next page"> NEXT &raquo;</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
 
 </div>
 {% endblock %}
