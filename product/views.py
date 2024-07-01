@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
+from django.contrib import messages
+from django.db.models import Q
 from django.core.paginator import Paginator
 
 from .models import Product, Category, Subcategory
@@ -7,6 +9,27 @@ from .models import Product, Category, Subcategory
 def all_products(request):
     """ A view to display all products """
     products = Product.objects.all()
+    query = None
+
+    if 'q' in request.GET:
+        query = request.GET['q']
+        if query:
+            queries = (
+                Q(title__icontains=query)
+            )
+            products = products.filter(queries)
+            if len(products) == 0:
+                messages.error(request, f"Sorry, we didn't \
+                    find any product matching '{query}'.")
+                return redirect(reverse('products')
+                )
+        else:
+            messages.error(request, "You didn't enter any \
+                search criteria!")
+            return redirect(reverse('products'))
+    if query is not None:
+        messages.success(request, f"You are viewing results for '{query}'.")
+            
 
     paginator = Paginator(products, 30)
     page_number = request.GET.get("page")
@@ -33,6 +56,7 @@ def all_products(request):
         'page_range': page_range,
         'start_page': start_page,
         'end_page': end_page,
+        'search_term': query,
         
     }
 

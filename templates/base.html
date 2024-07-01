@@ -37,24 +37,41 @@
 <body class="container-fluid">
 
     <header>
-        <nav class="navbar navbar-dark fixed-top nav-border-bottom custom-navbar" id="navbar">
+        <nav class="navbar navbar-dark nav-border-bottom custom-navbar" id="navbar">
             {% include 'includes/navbar.html' %}
             {% include 'includes/quick-bar.html' %}
+              <!-- Django messages Source: Boutique Ado -->
         </nav>
+        <div class="message-container">
+            {% for message in messages %}
+                {% with message.level as level %}
+                {% if level == 40 %}
+                    <p class="text-danger">{{ message }}</p>
+                {% elif level == 30 %}
+                    <p class="text-info">{{ message }}</p>
+                {% elif level == 25 %}
+                    <p class="text-success">{{ message }}</p>
+                {% else %}
+                    <p class="text-warning">{{ message }}</p>
+                {% endif %}
+            {% endwith %}
+            {% endfor %}
+        </div>
+        
     </header>
 
     {% block page_header %}
     {% endblock %}
-
+   
     <main>
         {% block content %}
         {% endblock %}
     </main>
 
 
-    <footer class="fixed-bottom">
+    <footer class="#">
 
-        <!-- <div class="row m-0 p-0">
+        <div class="row m-0 p-0">
             <div class="col-12 text-center">
                 <span class="text-center fs-5 footer-arrow arrow-up p-3 d-inline-block">
                     <i class="fa-solid fa-angles-up fa-2xl"></i>
@@ -63,7 +80,7 @@
                     <i class="fa-solid fa-angles-down fa-2xl"></i>
                 </span>
             </div>
-        </div> -->
+        </div>
         {% include 'includes/footer.html' %}
 
     </footer>
