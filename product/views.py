@@ -31,6 +31,8 @@ def all_products(request):
         'is_paginated': is_paginated,
         'page_obj': page_obj,
         'page_range': page_range,
+        'start_page': start_page,
+        'end_page': end_page,
         
     }
 

@@ -86,11 +86,16 @@
 
     {% if is_paginated %}
     <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center my-4">
+        <ol class="pagination justify-content-center my-4">
             {% if page_obj.has_previous %}
+            
+            <li>
+                <a href="?page=1&sort={{ sort }}&direction={{ direction }}"
+                    class="page-link pagination-btn rounded-left" aria-label="Return to first page">&laquo; FIRST </a>
+            </li>
             <li>
                 <a href="?page={{ page_obj.previous_page_number }}&sort={{ sort }}&direction={{ direction }}"
-                    class="page-link pagination-btn rounded-left" aria-label="Return to previous page">&laquo; PREV </a>
+                    class="page-link pagination-btn rounded-left" aria-label="Return to previous page">&lsaquo; PREV </a>
             </li>
             {% endif %}
 
@@ -103,10 +108,14 @@
             {% if page_obj.has_next %}
             <li>
                 <a href="?page={{ page_obj.next_page_number }}&sort={{ sort }}&direction={{ direction }}"
-                    class="page-link pagination-btn rounded-right" aria-label="Go to the next page"> NEXT &raquo;</a>
+                    class="page-link pagination-btn rounded-right" aria-label="Go to the next page"> NEXT &rsaquo;</a>
+            </li>
+            <li>
+                <a href="?page={{ page_obj.paginator.num_pages }}&sort={{ sort }}&direction={{ direction }}"
+                    class="page-link pagination-btn rounded-right" aria-label="Go to the last page"> LAST &raquo;</a>
             </li>
             {% endif %}
-        </ul>
+        </ol>
     </nav>
     {% endif %}
 
