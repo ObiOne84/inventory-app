@@ -29,7 +29,8 @@ def all_products(request):
             return redirect(reverse('products'))
     if query is not None:
         messages.success(request, f"You are viewing results for '{query}'.")
-            
+
+    products = products.order_by('id')        
 
     paginator = Paginator(products, 30)
     page_number = request.GET.get("page")

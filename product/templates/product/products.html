@@ -90,28 +90,28 @@
             {% if page_obj.has_previous %}
             
             <li>
-                <a href="?page=1&sort={{ sort }}&direction={{ direction }}"
+                <a href="?page=1&sort={{ sort }}&direction={{ direction }}&q={{ search_term }}"
                     class="page-link pagination-btn rounded-left" aria-label="Return to first page">&laquo; FIRST </a>
             </li>
             <li>
-                <a href="?page={{ page_obj.previous_page_number }}&sort={{ sort }}&direction={{ direction }}"
+                <a href="?page={{ page_obj.previous_page_number }}&sort={{ sort }}&direction={{ direction }}&q={{ search_term }}"
                     class="page-link pagination-btn rounded-left" aria-label="Return to previous page">&lsaquo; PREV </a>
             </li>
             {% endif %}
 
             {% for i in page_range %}
             <li class="page-item page-num-link {% if i == page_obj.number %}active{% endif %}">
-                <a href="?page={{ i }}&sort={{ sort }}&direction={{ direction }}" class="page-link" aria-label="Current page">{{ i }}</a>
+                <a href="?page={{ i }}&sort={{ sort }}&direction={{ direction }}&q={{ search_term }}" class="page-link" aria-label="Current page">{{ i }}</a>
             </li>
             {% endfor %}
 
             {% if page_obj.has_next %}
             <li>
-                <a href="?page={{ page_obj.next_page_number }}&sort={{ sort }}&direction={{ direction }}"
+                <a href="?page={{ page_obj.next_page_number }}&sort={{ sort }}&direction={{ direction }}&q={{ search_term }}"
                     class="page-link pagination-btn rounded-right" aria-label="Go to the next page"> NEXT &rsaquo;</a>
             </li>
             <li>
-                <a href="?page={{ page_obj.paginator.num_pages }}&sort={{ sort }}&direction={{ direction }}"
+                <a href="?page={{ page_obj.paginator.num_pages }}&sort={{ sort }}&direction={{ direction }}&q={{ search_term }}"
                     class="page-link pagination-btn rounded-right" aria-label="Go to the last page"> LAST &raquo;</a>
             </li>
             {% endif %}
