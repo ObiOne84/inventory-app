@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, reverse
 from django.contrib import messages
 from django.db.models import Q
 from django.core.paginator import Paginator
+from django.db.models.functions import Lower
 
 from .models import Product, Category, Subcategory
 
@@ -10,27 +11,42 @@ def all_products(request):
     """ A view to display all products """
     products = Product.objects.all()
     query = None
+    sort = None
+    direction = None
 
-    if 'q' in request.GET:
-        query = request.GET['q']
-        if query:
-            queries = (
-                Q(title__icontains=query)
-            )
-            products = products.filter(queries)
-            if len(products) == 0:
-                messages.error(request, f"Sorry, we didn't \
-                    find any product matching '{query}'.")
-                return redirect(reverse('products')
+    if request.GET:
+        if 'sort' in request.GET:
+            sortkey = request.GET['sort']
+            sort = sortkey
+            if sortkey == 'title':
+                sortkey = 'lower_title'
+                products = products.annotate(lower_title=Lower('title'))
+            if 'direction' in request.GET:
+                direction = request.GET['direction']
+                if direction == 'desc':
+                    sortkey = f'-{sortkey}'
+            products = products.order_by(sortkey)
+
+        if 'q' in request.GET:
+            query = request.GET['q']
+            if query:
+                queries = (
+                    Q(title__icontains=query)
                 )
-        else:
-            messages.error(request, "You didn't enter any \
-                search criteria!")
-            return redirect(reverse('products'))
-    if query is not None:
-        messages.success(request, f"You are viewing results for '{query}'.")
+                products = products.filter(queries)
+                if len(products) == 0:
+                    messages.error(request, f"Sorry, we didn't \
+                        find any product matching '{query}'.")
+                    return redirect(reverse('products')
+                    )
+            else:
+                messages.error(request, "You didn't enter any \
+                    search criteria!")
+                return redirect(reverse('products'))
+        if query is not None:
+            messages.success(request, f"You are viewing results for '{query}'.")
 
-    products = products.order_by('id')        
+    # products = products.order_by('id')        
 
     paginator = Paginator(products, 30)
     page_number = request.GET.get("page")
@@ -48,6 +64,10 @@ def all_products(request):
     page_range = range(start_page, end_page + 1)
 
     is_paginated = paginator.count > 30
+    current_sorting = f'{sort}_{direction}'
+
+    # if request.is_ajax():
+    #     return render(request, 'product/product_list_content.html', {'page_obj': page_obj})
 
     template = 'product/products.html'
     context = {
@@ -58,6 +78,7 @@ def all_products(request):
         'start_page': start_page,
         'end_page': end_page,
         'search_term': query,
+        'current_sorting': current_sorting,
         
     }
 
