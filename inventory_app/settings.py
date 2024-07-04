@@ -33,6 +33,8 @@ DEBUG = 'DEVELOPMENT' in os.environ
 ALLOWED_HOSTS = [
     os.environ.get('LOCAL_HOST'),
     'inventory-app-sz-e909db24ac61.herokuapp.com',
+    '127.0.0.1', 
+    'localhost',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -176,7 +178,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
