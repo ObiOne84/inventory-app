@@ -10,3 +10,7 @@ venv/
 .test.py
 .update_json.py
 fixtures/
+django-stubs
+django-stubs-ext
+types-PyYAML
+typing_extensions
