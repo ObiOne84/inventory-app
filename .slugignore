@@ -1,0 +1,12 @@
+.venv
+.mypy_cache
+node_modules/
+venv/
+.8.0.32
+.csv_to_json.py
+.fashion.csv
+.package-lock.json
+.package.json
+.test.py
+.update_json.py
+fixtures/
