@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.contrib import messages
 from django.db.models import Q
 from django.core.paginator import Paginator
 from django.db.models.functions import Lower
 
-from .models import Product, Category, Subcategory
+from .models import Product
 
 
 def all_products(request):
@@ -37,16 +38,16 @@ def all_products(request):
                 if len(products) == 0:
                     messages.error(request, f"Sorry, we didn't \
                         find any product matching '{query}'.")
-                    return redirect(reverse('products')
-                    )
+                    return redirect(reverse('products'))
             else:
                 messages.error(request, "You didn't enter any \
                     search criteria!")
                 return redirect(reverse('products'))
         if query is not None:
-            messages.success(request, f"You are viewing results for '{query}'.")
+            messages.success(request, f"You are viewing \
+                results for '{query}'.")
 
-    # products = products.order_by('id')        
+    # products = products.order_by('id')
 
     paginator = Paginator(products, 30)
     page_number = request.GET.get("page")
@@ -57,7 +58,7 @@ def all_products(request):
     total_pages = paginator.num_pages
 
     start_page = max(1, current_page - (max_page_number // 2))
-    end_page = min(total_pages, start_page + max_page_number -1)
+    end_page = min(total_pages, start_page + max_page_number - 1)
 
     if end_page - start_page + 1 < max_page_number:
         start_page = max(1, end_page - max_page_number + 1)
@@ -67,7 +68,8 @@ def all_products(request):
     current_sorting = f'{sort}_{direction}'
 
     # if request.is_ajax():
-    #     return render(request, 'product/product_list_content.html', {'page_obj': page_obj})
+    #     return render(request, 'product/
+    # product_list_content.html', {'page_obj': page_obj})
 
     template = 'product/products.html'
     context = {
@@ -79,7 +81,18 @@ def all_products(request):
         'end_page': end_page,
         'search_term': query,
         'current_sorting': current_sorting,
-        
+    }
+
+    return render(request, template, context)
+
+
+def product_detail(request, product_id):
+    """ A view to show individual product details """
+    product = Product.objects.get(id=product_id)
+
+    template = 'product/product_detail.html'
+    context = {
+        'product': product,
     }
 
     return render(request, template, context)

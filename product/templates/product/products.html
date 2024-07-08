@@ -73,11 +73,12 @@
         <div class="col-12 col-sm-4 col-md-3 col-lg-2 px-3 px-md-1">
             <div class="card h-100 border-0">
                 {% if product.image %}
-                <a href="#">
+                {% comment %} Add link to a element {% endcomment %}
+                <a href="{% url 'product_detail' product.id %}">
                     <img class="card-img-top product-img" loading="lazy" src="{{ product.image_url }}" alt="Image for {{ product.title }}">
                 </a>
                 {% else %}
-                <a href="#">
+                <a href="{% url 'product_detail' product.id %}">
                     <img class="card-img-top product-img" loading="lazy" src="{{ MEDIA_URL }}noimage.png" alt="Image not available for {{ product.title }}">
                 </a>
                 {% endif %}

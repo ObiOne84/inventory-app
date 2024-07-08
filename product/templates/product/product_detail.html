@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'product/css/products.css' %}" type="text/css">
+{% endblock %}
+
+{% block page_header %}
+{% comment %} <div class="container top-space">
+    <div class="row">
+        <div class="col"></div>
+    </div>
+</div> {% endcomment %}
+
+{% endblock %}
+
+{% block content %}
+<div class="overlay-cover"></div>
+<div class="container-lg minimum-height mb-4">
+    <div class="row">
+        {% if request.user.is_superuser %}
+        
+        {% endif %}
+        <div class="col-12 col-lg-10 col-xl-8 offset-xl-2 offset-lg-1 mt-3 px-md-5 px-lg-0">
+            <hr class="mx-2 p-0">
+            <div class="row mx-auto mx-md-0 my-3">
+                <div class="col-lg-4 col-sm-5">
+                    {% if product.image %}
+                    <a href="{{ product.image_url }}" target="_blank" aria-label="Open image for {{ product.title }} in seprate window">
+                        <img class="card-img-top img-fluid" src="{{ product.image_url }}" alt="Image for {{ product.title }}">
+                    </a>
+                    {% else %}
+                    <a href="" aria-label="Image placeholder for products without image">
+                        <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="Image not available for {{ product.title }}">
+                    </a>
+                    {% endif %}
+                </div>
+                <div class="col-lg-8 col-sm-7 mt-3">
+                    <p class="fs-4 fw-bold logo-font">{{ product.title }}</p>
+                    <p class="overflow-hidden dynamic-text"><strong>Author(s):</strong><span
+                            class="small ps-1 btt-link">{{ product.author }}</span></p>
+                    <p class="fw-bold fs-5">${{ product.price }}</p>
+                    {% if product_type == 'book' %}
+                    <a href="{% url 'products' %}?category=books" class="text-decoration-none" aria-label="Go to the products in book category">
+                        <p><span><i class="fa-solid fa-tag"></i> </span>Books</p>
+                    </a>
+                    {% elif product_type == 'comic' %}
+                    <a href="{% url 'products' %}?category=comics" class="text-decoration-none" aria-label="Go to the products in comic category">
+                        <p><span><i class="fa-solid fa-tag"></i> </span>Comics</p>
+                    </a>
+                    {% endif %}
+                    {% if product.rating %}
+                    <small class="text-muted"><i class="fas fa-star mr-1"></i>{{ product.rating }} / 5</small>
+                    <small class="text-muted"> ({{ product.ratings_count }} Ratings)</small>
+                    {% else %}
+                    <small class="text-muted">No Rating</small>
+                    {% endif %}
+
+                    {% if user.is_authenticated %}
+                        {% if product_in_orders %}
+                    <button type="button" class="btn btn-sm ms-2 p-1 pagination-btn review-btn text-uppercase"
+                        id="review-button" title="Add Review"><small>Review</small></button>
+                        {% endif %}
+                    {% endif %}
+                    
+                    <!-- User wishlist form -->
+                    
+
+                    <!-- Source:Boutique ado walkthrough project -->
+                     {% comment %} Add to bag form below {% endcomment %}
+                    <form class="form" action="#" method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-10 col-sm-12 col-md-8 mt-1 mx-0">
+                                <p class="mt-2"><strong>Quantity:</strong></p>
+                                <div class="form-group">
+                                    <div class="input-group mb-3 quantity-input-container input-group-{{ product.id }}">
+                                        <button class="decrement-qty btn btn-black-brown rounded-left p-1 m-0 decrement-qty_{{ product.id }}"
+                                            type="button" data-item_id="{{ product.id }}"
+                                            id="decrement-qty_{{ product.id }}" title="Decrement quantity">
+                                            <span class="px-2">
+                                                <i class="fa-solid fa-minus"></i>
+                                            </span>
+                                        </button>
+                                        <input class="form-control qty_input m-0 p-1 text-center id_qty_{{ product.id }}" type="number" name="quantity"
+                                            value="1" min="1" max="10" data-item_id="{{ product.id }}"
+                                            id="id_qty_{{ product.id }}" aria-label="Qunatity input - choose input in range 1 to 10">
+                                        <button class="increment-qty btn btn-black-brown rounded-right p-1 m-0 increment-qty_{{ product.id }}"
+                                            type="button" data-item_id="{{ product.id }}"
+                                            id="increment-qty_{{ product.id }}" title="Increment quantity">
+                                            <span class="px-2">
+                                                <i class="fa-solid fa-plus"></i>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 mt-1 mx-0">
+                                <a href="{% url 'products' %}" class="btn pagination-btn rounded-1 small-btn"
+                                    aria-label="Go back to products.">
+                                    <span class="">
+                                        <i class="fas fa-chevron-left color-dark"></i>
+                                    </span>
+                                    <span class="text-uppercase">Keep Shopping</span>
+                                </a>
+                                <input type="submit" class="btn btn-black-brown rounded-1 small-btn text-uppercase"
+                                    value="Add to Bag" aria-label="Add product to the bag">
+                            </div>
+                            <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row mx-0 mx-sm-1">
+                <div class="col">
+                    <!-- Main view tabs -->
+                    <div class="row mt-3 d-none d-md-block">
+                        <div class="col-12">
+                            <ul class="nav nav-tabs">
+                                <li class="nav-item">
+                                    <a class="nav-link extra-info active text-muted" aria-current="page"
+                                        href="#" aria-label="Read product description">Description
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link extra-info text-muted" href="" aria-label="Find more details about the product">
+                                        More Details
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link extra-info text-muted reviews-nav" href="#" aria-label="Read product reviews">
+                                        Reviews
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="mx-0 mx-md-3 p-0 my-1 d-none d-md-block">
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block postload_js %}
+{{ block.super }}
+
+    {% comment %} <script src="{% static 'products/js/script-product.js' %}"></script>
+    <script src="{% static 'products/js/quantity_input_script.js' %}"></script>
+    <script>
+        var myModal = new bootstrap.Modal(document.getElementById('myModal'))
+    </script> {% endcomment %}
+
+{% endblock %}
